@@ -7,11 +7,11 @@ from PIL import Image
 
 from utils import resizeAndEncodeImage
 
-dir_path_local = "/home/ubuntu/InsightFace-REST/src/api_trt/images"
+dir_path_local = "/home/ubuntu/InsightFace-REST/models/images"
 vectors = {}
 
 for filename in tqdm.tqdm(os.listdir(dir_path_local)):
-    if "JPG" in filename:
+    if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
         try:
             image = Image.open(os.path.join(dir_path_local, filename))
 
