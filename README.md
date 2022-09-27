@@ -10,7 +10,7 @@ This repository is built upon [InsightFace-REST](https://github.com/SthPhoenix/I
 5. Run `cd backend && python build_index.py` to build your index of faces in your existing images.
 
 ## Run
-1. Run `InsightFace-REST/deploy_cpu.sh` (you might need to run it twice, since the first time the container is building).
+1. Run `cd InsightFace-REST && ./deploy_cpu.sh` (you might need to run it twice, since the first time the container is building).
 2. Run `cd backend && uvicorn main:app --reload`
 
 ## Test backend
