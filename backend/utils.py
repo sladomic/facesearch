@@ -13,6 +13,6 @@ def resizeAndEncodeImage(image: Image):
     image = image.resize((int(width), int(height)))
 
     file = io.BytesIO()
-    image.save(file, format="JPEG")
+    image.save(file, format="PNG")
     encoded = base64.b64encode(file.getvalue()).decode('ascii')
     return encoded
