@@ -15,7 +15,7 @@ This repository is built upon [InsightFace-REST](https://github.com/SthPhoenix/I
 
 ## Run
 1. Run `cd InsightFace-REST && ./deploy_cpu.sh` (you might need to run it twice, since the first time the container is building).
-2. Run `cd backend && uvicorn main:app --reload` to start the backend.
+2. Run `cd backend && uvicorn main:app --host 0.0.0.0 --port 8000` to start the backend.
 3. Run `cd frontend && serve -s build` to start the frontend.
 
 ## Test backend
