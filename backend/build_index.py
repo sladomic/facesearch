@@ -17,7 +17,7 @@ def process_file(filepath):
     _vectors = []
 
     # Try 3 times (with 1 second in between), sometimes there's a connection problem with the InsightFace-REST API
-    for attempt in range(3):
+    for _ in range(3):
         try:
             image = Image.open(filepath)
 
@@ -36,8 +36,6 @@ def process_file(filepath):
                     for face in data["faces"]:
                         vec = face["vec"]
                         _vectors.append(vec)
-
-                    
                         
         except Exception:
             time.sleep(1)
