@@ -52,7 +52,7 @@ for filename in os.listdir(dir_path_local):
     if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
         filepaths.append(os.path.join(dir_path_local, filename))
 
-with ProcessPool(8) as p:
+with ProcessPool(4) as p:
     for _vectors in tqdm.tqdm(p.imap_unordered(process_file, filepaths), total=len(filepaths)):
         vectors = vectors | _vectors
 
