@@ -4,7 +4,7 @@
 This repository is built upon [InsightFace-REST](https://github.com/SthPhoenix/InsightFace-REST).
 
 1. In order to run, clone the repository and place your `images` directory into `InsightFace-REST/models`.
-2. Run `cd backend && python train.py` to build your index of faces in your existing images.
+2. Run `cd backend && python build_index.py` to build your index of faces in your existing images.
 
 ## Run
 1. Run `InsightFace-REST/deploy_cpu.sh` (you might need to run it twice, since the first time the container is building).
