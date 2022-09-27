@@ -12,16 +12,13 @@
 }
 
 .dropzone {
-  height: 16rem;
-  width: 16rem;
+  height: 100%;
+  width: 100%;
   color: #fff;
   padding: 1rem;
-  border-radius: 2rem;
-  background: #7dcfb6;
-  box-shadow: 1rem 1rem 2rem #71baa4, -1rem -1rem 2rem #8ae4c8;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   cursor: pointer;
 }

@@ -13,8 +13,19 @@ body {
   width: 100%;
   margin: 0;
   font-family: roboto;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: url("background.jpg") center center;
   background-size: cover;
+  opacity: 0.5;
+  z-index: -1;
 }
 
 #root {
