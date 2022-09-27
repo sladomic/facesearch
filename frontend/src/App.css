@@ -1,0 +1,27 @@
+.App {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
+
+.dropzone {
+  height: 16rem;
+  width: 16rem;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 50px;
+  background: #7dcfb6;
+  box-shadow: inset 24px 24px 49px #609f8c, inset -24px -24px 49px #9affe0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.dropzone svg {
+  font-size: 12rem;
+}
