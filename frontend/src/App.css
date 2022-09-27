@@ -31,6 +31,15 @@
   font-size: 8rem;
 }
 
+.dropzone .progress {
+  height: 8rem !important;
+  width: 8rem !important;
+}
+
+.dropzone .progress-text {
+  font-size: 2rem;
+}
+
 .download {
   content: "";
   position: absolute;
