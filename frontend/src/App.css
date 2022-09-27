@@ -1,11 +1,14 @@
-.App {
+.app {
   height: 100%;
   width: 100%;
   text-align: center;
   display: flex;
-  flex-direction: column;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
+}
+
+.app > * {
+  margin: 1rem;
 }
 
 .dropzone {
@@ -13,15 +16,40 @@
   width: 16rem;
   color: #fff;
   padding: 1rem;
-  border-radius: 50px;
+  border-radius: 2rem;
   background: #7dcfb6;
-  box-shadow: inset 24px 24px 49px #609f8c, inset -24px -24px 49px #9affe0;
+  box-shadow: 1rem 1rem 2rem #71baa4, -1rem -1rem 2rem #8ae4c8;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
+  cursor: pointer;
+}
+
+.dropzone p {
+  font-size: 2rem;
 }
 
 .dropzone svg {
-  font-size: 12rem;
+  font-size: 8rem;
+}
+
+.download {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0%;
+  color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.download:hover {
+  color: white;
+  background-color: #ffffff33;
+  text-decoration: none;
 }

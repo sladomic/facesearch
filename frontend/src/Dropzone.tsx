@@ -2,43 +2,49 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
-import { CircularProgress, ImageList, ImageListItem } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
-export function Dropzone() {
+export function Dropzone({
+  setResults,
+}: {
+  setResults: React.Dispatch<React.SetStateAction<object | undefined>>;
+}) {
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<string[]>();
 
-  const onDrop = useCallback(async (acceptedFiles: (string | Blob)[]) => {
-    let data = new FormData();
-    data.append("uploadFile", acceptedFiles[0]);
+  const onDrop = useCallback(
+    async (acceptedFiles: (string | Blob)[]) => {
+      let data = new FormData();
+      data.append("uploadFile", acceptedFiles[0]);
 
-    setLoading(true);
-    const result = await fetch("http://localhost:8000/search/", {
-      method: "PUT",
-      body: data,
-    });
-    setLoading(false);
-    if (result.ok) {
-      const resultList: string[] = await result.json();
-      setResults(resultList);
-    } else {
-      alert(result.body);
-    }
-  }, []);
+      setLoading(true);
+      const result = await fetch("http://localhost:8000/search/", {
+        method: "PUT",
+        body: data,
+      });
+      if (result.ok) {
+        const resultDict = await result.json();
+        setLoading(false);
+        setResults(resultDict);
+      } else {
+        setLoading(false);
+        alert(result.body);
+      }
+    },
+    [setResults]
+  );
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  return results ? (
-    <ImageList>
-      {results.map((result) => (
-        <ImageListItem key={result}>
-          <img src={result} alt={result} loading="lazy" />
-        </ImageListItem>
-      ))}
-    </ImageList>
-  ) : (
+  return (
     <div className="dropzone" {...getRootProps()}>
       <input {...getInputProps()} />
-      {loading ? <CircularProgress /> : <AddPhotoAlternateOutlinedIcon />}
+      {loading ? (
+        <CircularProgress color="inherit" />
+      ) : (
+        <>
+          <p>Drop an image of your face here</p>
+          <AddPhotoAlternateOutlinedIcon />
+        </>
+      )}
     </div>
   );
 }
