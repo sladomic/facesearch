@@ -1,5 +1,7 @@
-from typing import Dict, List
+import base64
+from typing import Dict
 
+import os
 from PIL import Image
 import uvicorn
 from fastapi import FastAPI, UploadFile, HTTPException
@@ -31,7 +33,7 @@ with open('/home/ubuntu/facesearch/backend/trained.json', 'r') as fp:
 
 @app.put("/search/")
 def update_item(uploadFile: UploadFile):
-    candidates: List = []
+    candidates: Dict = {}
 
     image = Image.open(io.BytesIO(uploadFile.file.read()))
 
@@ -55,7 +57,11 @@ def update_item(uploadFile: UploadFile):
                             for trained_image_face in trained_image_faces:
                                 similarity = cosine_similarity([vec], [trained_image_face])
                                 if similarity > 0.6:
-                                    candidates.append(trained_image_path)
+                                    trained_image = Image.open(trained_image_path)
+                                    trained_image_file = io.BytesIO()
+                                    trained_image.save(trained_image_file, format="JPEG")
+                                    encoded = base64.b64encode(trained_image_file.getvalue()).decode('ascii')
+                                    candidates[os.path.basename(trained_image_path)] = encoded
                                     break
 
         return candidates
