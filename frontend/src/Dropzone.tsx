@@ -4,6 +4,13 @@ import { useDropzone } from "react-dropzone";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import { CircularProgress } from "@mui/material";
 
+let apiUrl = "";
+if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+  apiUrl = "http://localhost";
+} else {
+  apiUrl = "http://ec2-18-222-149-34.us-east-2.compute.amazonaws.com";
+}
+
 export function Dropzone({
   setResults,
 }: {
@@ -17,7 +24,7 @@ export function Dropzone({
       data.append("uploadFile", acceptedFiles[0]);
 
       setLoading(true);
-      const result = await fetch("http://localhost:8000/search/", {
+      const result = await fetch(`${apiUrl}:8000/search/`, {
         method: "PUT",
         body: data,
       });

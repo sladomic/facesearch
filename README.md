@@ -8,7 +8,7 @@ This repository is built upon [InsightFace-REST](https://github.com/SthPhoenix/I
 3. Update `InsightFace-REST/deploy_cpu.sh` to use more workers `n_workers=4` instead of `n_workers=1`.
 4. Run `InsightFace-REST/deploy_cpu.sh` (you might need to run it twice, since the first time the container is building).
 5. Run `cd backend && python build_index.py` to build your index of faces in your existing images.
-6. Change the CORS origins to your domains in [main.py](backend/main.py)
+6. Change the CORS origins to your domains in [main.py](backend/main.py) and apiUrl in [Dropzone.tsx](frontend/src/Dropzone.tsx)
 7. Run `cd frontend && npm install` to install frontend dependencies.
 8. Run `cd frontend && npm run build` to build the frontend.
 9. Run `sudo npm install -g serve` to install the static server.
