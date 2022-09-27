@@ -3,6 +3,7 @@ from typing import Dict, List
 from PIL import Image
 import uvicorn
 from fastapi import FastAPI, UploadFile, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests
 import ujson
@@ -12,6 +13,18 @@ from sklearn.metrics.pairwise import cosine_similarity
 from utils import resizeAndEncodeImage
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 with open('/home/ubuntu/facesearch/backend/trained.json', 'r') as fp:
     trained: Dict = ujson.load(fp)
