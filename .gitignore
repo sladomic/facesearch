@@ -2,3 +2,4 @@
 **/venv
 images
 backend/trained.json
+**/__pycache__

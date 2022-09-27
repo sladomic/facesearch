@@ -1,31 +1,31 @@
 from typing import Dict, List
-import base64
 
+from PIL import Image
+import uvicorn
 from fastapi import FastAPI, UploadFile, HTTPException
 from pydantic import BaseModel
 import requests
 import ujson
-import os
+import io
 from sklearn.metrics.pairwise import cosine_similarity
 
-def file2base64(path):
-    with open(path, mode='rb') as fl:
-        encoded = base64.b64encode(fl.read()).decode('ascii')
-        return encoded
+from utils import resizeAndEncodeImage
 
 app = FastAPI()
 
-with open('trained.json', 'r') as fp:
+with open('/home/ubuntu/facesearch/backend/trained.json', 'r') as fp:
     trained: Dict = ujson.load(fp)
 
 @app.put("/search/")
-def update_item(file: UploadFile):
+def update_item(uploadFile: UploadFile):
     candidates: List = []
+
+    image = Image.open(io.BytesIO(uploadFile.file.read()))
 
     try:
         response = requests.post('http://localhost:18081/extract', json={"images": {
             "data": [
-                file2base64(file)
+                resizeAndEncodeImage(image)
             ]
         }})
 
@@ -40,7 +40,7 @@ def update_item(file: UploadFile):
 
                         for trained_image_path, trained_image_faces in trained.items():
                             for trained_image_face in trained_image_faces:
-                                similarity = cosine_similarity(face, trained_image_face)
+                                similarity = cosine_similarity([vec], [trained_image_face])
                                 if similarity > 0.6:
                                     candidates.append(trained_image_path)
                                     break
@@ -49,3 +49,6 @@ def update_item(file: UploadFile):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=e)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

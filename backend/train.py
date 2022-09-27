@@ -3,6 +3,9 @@ from typing import Dict
 import requests
 import ujson
 import tqdm
+from PIL import Image
+
+from utils import resizeAndEncodeImage
 
 dir_path_local = "/home/ubuntu/InsightFace-REST/src/api_trt/images"
 vectors = {}
@@ -10,9 +13,11 @@ vectors = {}
 for filename in tqdm.tqdm(os.listdir(dir_path_local)):
     if "JPG" in filename:
         try:
+            image = Image.open(os.path.join(dir_path_local, filename))
+
             response = requests.post('http://localhost:18081/extract', json={"images": {
-                "urls": [
-                    os.path.join("images", filename)
+                    "data": [
+                    resizeAndEncodeImage(image)
                 ]
             }})
 
